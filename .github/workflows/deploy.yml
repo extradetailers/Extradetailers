@@ -39,13 +39,13 @@ jobs:
           context: ./server
           push: true
           tags: |
-            us-central1-docker.pkg.dev/extra-detailers-project/extradetailers-backend-repo/django-app:latest
-            us-central1-docker.pkg.dev/extra-detailers-project/extradetailers-backend-repo/django-app:${{ github.sha }}
+            us-central1-docker.pkg.dev/extra-detailers-project/extradetailers-backend-repo/django-backend:latest
+            us-central1-docker.pkg.dev/extra-detailers-project/extradetailers-backend-repo/django-backend:${{ github.sha }}
 
       # 5. Deploy to Cloud Run
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v3
         with:
-          service: django-app
+          service: django-backend
           region: us-central1
-          image: us-central1-docker.pkg.dev/extra-detailers-project/extradetailers-backend-repo/django-app:${{ github.sha }}
+          image: us-central1-docker.pkg.dev/extra-detailers-project/extradetailers-backend-repo/django-backend:${{ github.sha }}
