@@ -24,6 +24,10 @@ jobs:
           workload_identity_provider: projects/570378881850/locations/global/workloadIdentityPools/github-identity-pool/providers/extradetailers-github-provider
           service_account: extradetailers-service-account@extra-detailers-project.iam.gserviceaccount.com
 
+      - name: Configure Docker for Artifact Registry
+        uses: google-github-actions/setup-gcloud@v2
+
+
       # Build & Push Docker Image
       - name: Build and Push Image
         uses: docker/build-push-action@v5
@@ -31,8 +35,8 @@ jobs:
           context: ./server
           push: true
           tags: |
-            us-central1-docker.pkg.dev/570378881850/django/app:latest
-            us-central1-docker.pkg.dev/570378881850/django/app:${{ github.sha }}
+            us-central1-docker.pkg.dev/extra-detailers-project/extradetailers-backend-repo:latest
+            us-central1-docker.pkg.dev/extra-detailers-project/extradetailers-backend-repo:${{ github.sha }}
 
       # Deploy to Cloud Run
       - name: Deploy to Cloud Run
@@ -40,4 +44,4 @@ jobs:
         with:
           service: django-app
           region: us-central1
-          image: us-central1-docker.pkg.dev/570378881850/django/app:${{ github.sha }}
+          image: us-central1-docker.pkg.dev/extra-detailers-project/extradetailers-backend-repo:${{ github.sha }}
