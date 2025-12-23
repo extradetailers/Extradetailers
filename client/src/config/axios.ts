@@ -2,7 +2,7 @@ import axios from "axios";
 // import { cookies } from "next/headers"; // For server-side authentication
 
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND_API || "http://localhost:8000/api",
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_API || "http://localhost:8080/api",
   headers: {
     "Content-Type": "application/json",
   },

@@ -24,7 +24,7 @@ COPY . .
 RUN chmod +x /app/entrypoint.sh
 
 # Cloud Run injects PORT
-ENV PORT=8080
+ENV PORT=8000
 
 # Run as non-root (Cloud Run best practice)
 RUN useradd -m appuser
