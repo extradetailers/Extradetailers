@@ -1,7 +1,7 @@
-.serviceCard{
-    width: 400px;
-}
+@use "../../variables" as *;
 
-.formCard{
-    
+
+
+.serviceCard{
+    width: $card-width;
 }

@@ -1,5 +1,7 @@
+@use "../../variables" as *;
+
 .bookingCard{
-    width: 400px;
+    width: $card-width;
 }
 
 .formCard{

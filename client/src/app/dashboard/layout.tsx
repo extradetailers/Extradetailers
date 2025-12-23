@@ -1,25 +1,15 @@
 import React from 'react';
-import AdminDashboardLayout from '@/components/layout/AdminDashboardLayout';
-import { IMenuItem } from '@/types';
+import styles from "./dashboard.module.scss";
+import LayoutWrapper from '@/components/layout/LayoutWrapper';
+import { dashboardMenuList } from '@/utils/staticData';
 
-const menuList: IMenuItem[] = [
-  {
-    id: 1,
-    text: "Dashboard",
-    link: "/dashboard"
-  },
-  {
-    id: 2,
-    text: "Bookings",
-    link: "/dashboard/bookings"
-  }
-];
+
 
 
 function DashboardLayout({children}: React.PropsWithChildren) {
   return (
     <React.Fragment>
-      <AdminDashboardLayout title='Dashboard' menuList={menuList} >{children}</AdminDashboardLayout>
+      <LayoutWrapper  title='Dashboard' styles={styles} menuList={dashboardMenuList}>{children}</LayoutWrapper>
     </React.Fragment>
   )
 }

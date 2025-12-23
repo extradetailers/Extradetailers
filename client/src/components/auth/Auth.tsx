@@ -98,7 +98,7 @@ function Auth({ headTest, signin }: IAuthProps) {
                             <button type="submit" className="btn btn-primary w-100 mb-3"> Register <MdLogin /></button>
                             <p className="text-center mb-3">Already have an account? <Link href="/signin">Login</Link></p>
                         </>}
-                        <p className="text-center mb-3">Password forgotten? <Link href="/reset-password">Reset</Link></p>
+                        <p className="text-center mb-3">Password forgotten? <Link href="/forgotten-password">Reset</Link></p>
                     </form>
                 </div>
             </div>

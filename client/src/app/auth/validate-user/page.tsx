@@ -2,11 +2,13 @@ import { redirect } from "next/navigation";
 import { validateUser } from "@/app/_requests/auth";
 import Link from "next/link";
 
+interface PageProps {
+  searchParams: Promise<{ token?: string }>;
+}
+
 export default async function ValidateUserPage({
   searchParams,
-}: {
-  searchParams: { token?: string };
-}) {
+}: PageProps) {
   const { token } = await searchParams;
 
   const validationResult = await validateUser(token);

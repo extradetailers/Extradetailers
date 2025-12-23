@@ -1,7 +1,17 @@
 res
+.env
+/client/.env
+/client/.env.local
+/client/plan.txt
+/client/packages.txt
 /client/node_modules
 /client/.next
+
 /server/.venv
 /server/.idea
 /server/.env
+/server/.env.prod
 /server/**__pycache__**
+
+certbot/*
+!certbot/README.md  # Optional: keep a readme or any instruction file

@@ -1,0 +1,33 @@
+@use "../../mixins" as *;
+
+// Hero Section
+.landing {
+  @include landing-design();
+}
+
+.checkout {
+  body {
+    background-color: #f8f9fa;
+  }
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0d6efd;
+  }
+  .cardTitle {
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 0.5rem;
+  }
+}
+
+// Duplicate from header.module.scss
+.headerLogo {
+  width: 3rem;
+  height: 3rem;
+}
+
+.glassEffect {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+}

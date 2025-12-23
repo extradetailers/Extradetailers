@@ -62,17 +62,20 @@ project-root/
 
 ### 1. Clone the Repository:
 ```sh
-git clone https://github.com/your-username/car-detailing-platform.git
-cd car-detailing-platform
+git clone https://github.com/MdSamsuzzohaShayon/extradetailers.git
+cd extradetailers
 ```
 
 ### 2. Setup Backend (Django):
 ```sh
 cd server
-python -m venv venv
-source venv/bin/activate  # (Windows: venv\Scripts\activate)
+python -m venv .venv
+source .venv/bin/activate  # (Windows: venv\Scripts\activate)
 pip install -r requirements.txt
+python manage.py makemigrations
+python manage.py makemigrations accounts
 python manage.py migrate
+python manage.py migrate accounts
 python manage.py runserver
 ```
 
@@ -84,16 +87,8 @@ npm run dev
 ```
 
 ### 4. Environment Variables:
-Create `.env` files in both `client/` and `server/` folders with necessary API keys and configurations.
+Create `.env` files in in `root` folder, `client/` and `server/` folders with necessary API keys and configurations.
 
-## API Endpoints
-| Method | Endpoint | Description |
-|--------|-------------|-------------|
-| GET | /api/services/ | Get available services |
-| POST | /api/bookings/ | Create a new booking |
-| GET | /api/bookings/{id}/ | Get booking details |
-| POST | /api/payment/ | Process a payment |
-| GET | /api/detailers/ | List all detailers |
 
 ## Contributing
 1. Fork the repository
@@ -105,5 +100,5 @@ Create `.env` files in both `client/` and `server/` folders with necessary API k
 This project is licensed under the MIT License.
 
 ## Contact
-For any issues, feel free to reach out at [your-email@example.com](mailto:your-email@example.com).
+For any issues, feel free to reach out at [mdsamsuzzoha5222@gmail.com](mailto:mdsamsuzzoha5222@gmail.com).
 

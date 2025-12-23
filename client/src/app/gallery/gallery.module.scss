@@ -1,0 +1,62 @@
+@use "../mixins" as *;
+
+
+
+
+.aspectRatioLandscape {
+  padding-top: 75%;
+}
+.aspectRatioPortrait {
+  padding-top: 133%;
+}
+.aspectRatioSquare {
+  padding-top: 100%;
+}
+.aspectRatioPanoramic {
+  padding-top: 50%;
+}
+
+.galleryItem {
+  transition: transform 0.3s ease;
+  border-radius: 0.75rem;
+  overflow: hidden;
+
+  img {
+    transition: transform 0.4s ease;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+
+    img {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.galleryOverlay {
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  .galleryItem:hover & {
+    opacity: 1;
+  }
+}
+
+.btnGroup {
+  .btn {
+    transition: all 0.2s ease;
+
+    &.active {
+      background-color: var(--bs-primary);
+      color: #fff;
+      border-color: var(--bs-primary);
+    }
+  }
+}
+
+.landing {
+  @include landing-design();
+}

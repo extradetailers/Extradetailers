@@ -1,0 +1,115 @@
+.serviceMap {
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 2rem;
+  }
+
+  .mapContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .serviceCard {
+    background: #f8f9fa;
+    border-radius: 6px;
+    padding: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .serviceTitle {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
+    }
+
+    .serviceDescription {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    .serviceDetails {
+      > div {
+        margin-bottom: 1rem;
+
+        h4 {
+          font-size: 0.9rem;
+          font-weight: 600;
+          color: #2c3e50;
+          margin-bottom: 0.5rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        p, ul {
+          font-size: 0.9rem;
+          color: #666;
+        }
+
+        ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+
+          li {
+            padding: 0.25rem 0;
+            border-bottom: 1px solid #eee;
+
+            &:last-child {
+              border-bottom: none;
+            }
+          }
+        }
+      }
+
+      .category {
+        background: #e9ecef;
+        padding: 0.5rem;
+        border-radius: 4px;
+      }
+
+      .features {
+        ul li {
+          display: flex;
+          align-items: center;
+          
+          &::before {
+            content: "•";
+            color: #007bff;
+            font-weight: bold;
+            margin-right: 0.5rem;
+          }
+        }
+      }
+
+      .pricing {
+        ul li {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
+
+      .timing {
+        background: #e9ecef;
+        padding: 0.5rem;
+        border-radius: 4px;
+        text-align: center;
+      }
+    }
+  }
+} 

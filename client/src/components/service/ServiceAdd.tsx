@@ -1,80 +1,168 @@
-'use client'
-
-import { createServiceOptions } from '@/app/_requests/services';
-import { IService } from '@/types';
-import { DefaultError, useMutation, useQueryClient } from '@tanstack/react-query';
-import React, { useState } from 'react';
-
+import {
+  IService,
+  IServiceCategory,
+  IServiceFeature,
+  IServicePrice,
+} from "@/types";
+import React from "react";
 
 interface IServiceAddProps {
-    styles: Record<string, string>;
+  serviceCategories: IServiceCategory[];
+  serviceFixtures: IServiceFeature[];
+  servicePrices: IServicePrice[];
+  selectedService?: IService | null;
 }
 
-function ServiceAdd({ styles }: IServiceAddProps) {
-    const queryClient = useQueryClient(); // ✅ React Query Client
-    const [editingService, setEditingService] = useState<Partial<IService>>({});
+function ServiceAdd({
+  selectedService,
+  serviceFixtures,
+  serviceCategories,
+  servicePrices,
+}: IServiceAddProps) {
+  return (
+    <div className="card shadow p-4 rounded-4 border border-light-subtle">
+      <h4 className="mb-4 fw-bold text-primary">Add / Edit Service</h4>
 
-    // ✅ UseMutation for creating a service
-    const createServiceMutation = useMutation<unknown, DefaultError, FormData>(createServiceOptions(queryClient));
+      {/* Title */}
+      <div className="mb-3">
+        <label htmlFor="title" className="form-label fw-semibold">
+          Title
+        </label>
+        <input
+          type="text"
+          className="form-control border-primary"
+          name="title"
+          id="title"
+          placeholder="Enter service title"
+          defaultValue={selectedService?.title || ""}
+          required
+        />
+      </div>
 
+      {/* Category */}
+      <div className="mb-3">
+        <label htmlFor="category" className="form-label fw-semibold">
+          Category
+        </label>
+        <select
+          className="form-select border-primary"
+          name="category"
+          id="category"
+          defaultValue={selectedService?.category || ""}
+          required
+        >
+          <option value="">-- Select Category --</option>
+          {serviceCategories.map((cat) => (
+            <option key={cat.id} value={cat.id}>
+              {cat.name}
+            </option>
+          ))}
+        </select>
+      </div>
 
+      {/* Description */}
+      <div className="mb-3">
+        <label htmlFor="description" className="form-label fw-semibold">
+          Description
+        </label>
+        <textarea
+          className="form-control border-primary"
+          name="description"
+          id="description"
+          rows={4}
+          placeholder="Enter service description"
+          defaultValue={selectedService?.description || ""}
+          required
+        />
+      </div>
 
-    const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const form = e.currentTarget; // ✅ Correctly reference the form element
-        const formData = new FormData(form);
-        createServiceMutation.mutate(formData); // ✅ Call the mutation
-        form.reset(); // Optional: Reset the form after submission
-    };
+      {/* Estimated Time Min */}
+      <div className="mb-3">
+        <label htmlFor="estimated_time_min" className="form-label fw-semibold">
+          Estimated Time (Min)
+        </label>
+        <input
+          type="number"
+          className="form-control border-primary"
+          name="estimated_time_min"
+          id="estimated_time_min"
+          placeholder="Minimum estimated time in minutes"
+          defaultValue={selectedService?.estimated_time_min || ""}
+          required
+        />
+      </div>
 
-    // const handleUpdate = async () => {
-    //     if (!editingService) return;
-    //     // const updatedService = await updateService(editingService.id, editingService);
-    //     // setServices(services.map(s => s.id === updatedService.id ? updatedService : s));
-    //     // setEditingService(null);
-    // };
+      {/* Estimated Time Max */}
+      <div className="mb-3">
+        <label htmlFor="estimated_time_max" className="form-label fw-semibold">
+          Estimated Time (Max)
+        </label>
+        <input
+          type="number"
+          className="form-control border-primary"
+          name="estimated_time_max"
+          id="estimated_time_max"
+          placeholder="Maximum estimated time in minutes"
+          defaultValue={selectedService?.estimated_time_max || ""}
+          required
+        />
+      </div>
 
+      {/* Prices */}
+      <div className="mb-3">
+        <label htmlFor="prices" className="form-label fw-semibold">
+          Vehicle Type Prices
+        </label>
+        <select
+          multiple
+          className="form-select border-primary"
+          name="prices"
+          id="prices"
+          required
+        >
+          {servicePrices.map((price) => (
+            <option key={price.id} value={price.id}>
+              {/* {price.vehicle_type.name} - ${price.price} */}
+              Truck - $20
+            </option>
+          ))}
+        </select>
+        <div className="form-text">
+          Hold Ctrl (Windows) or Command (Mac) to select multiple.
+        </div>
+      </div>
 
-    return (
-        <form className={`card ${styles.formCard}`} onSubmit={handleCreate}>
-            <div className="card-body">
-                <h5 className="card-title">{editingService ? 'Edit Service' : 'Add New Service'}</h5>
-                <input
-                    type="text"
-                    className="form-control mb-2"
-                    placeholder="Title"
-                    name="title"
-                />
-                <input
-                    type="number"
-                    className="form-control mb-2"
-                    placeholder="Price"
-                    name="price"
-                />
-                <input
-                    type="text"
-                    className="form-control mb-2"
-                    placeholder="Duration"
-                    name="duration"
-                />
-                <textarea
-                    className="form-control mb-2"
-                    placeholder="Description"
-                    name="description"
-                />
-                <button
-                    className="btn btn-primary"
-                   type='submit'
-                >
-                    {/* {editingService ? 'Update' : 'Create'} */}
-                    Create
-                </button>
-                {editingService && (
-                    <button className="btn btn-danger ms-2" onClick={() => setEditingService({})}>Cancel</button>
-                )}
-            </div>
-        </form>
-    )
+      {/* Features */}
+      <div className="mb-3">
+        <label htmlFor="features" className="form-label fw-semibold">
+          Features
+        </label>
+        <select
+          multiple
+          className="form-select border-primary"
+          name="features"
+          id="features"
+          required
+        >
+          {serviceFixtures.map((feature) => (
+            <option key={feature.id} value={feature.id}>
+              {feature.feature_description}
+            </option>
+          ))}
+        </select>
+        <div className="form-text">
+          Hold Ctrl (Windows) or Command (Mac) to select multiple.
+        </div>
+      </div>
+
+      {/* Submit Button */}
+      <div className="d-grid">
+        <button type="submit" className="btn btn-primary fw-semibold">
+          {selectedService ? "Update Service" : "Create Service"}
+        </button>
+      </div>
+    </div>
+  );
 }
 
-export default ServiceAdd
+export default ServiceAdd;

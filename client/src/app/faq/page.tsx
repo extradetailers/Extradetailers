@@ -72,7 +72,6 @@ function FAQPage() {
                           className={`accordion-button ${activeIndex === index ? "" : "collapsed"} fw-bold`}
                           type="button"
                           onClick={() => toggleAccordion(index)}
-                          aria-expanded={activeIndex === index}
                         >
                           {faq.question}
                         </button>

@@ -4,6 +4,8 @@ import styles from "./booking.module.scss";
 import { getQueryClient } from "@/lib/get-query-client";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import BookingList from "@/components/booking/BookingList";
+import { useUsersOptions } from "@/app/_requests/users";
+import { EUserRole } from "@/types";
 
 async function BookingPage() {
 
@@ -11,7 +13,10 @@ async function BookingPage() {
 
   try {
     // Always use await to properly handle errors
-    await queryClient.prefetchQuery(bookingsOptions);
+    await Promise.all([
+      queryClient.prefetchQuery(bookingsOptions),
+      queryClient.prefetchQuery(useUsersOptions({role: EUserRole.DETAILER}))
+    ]);
   } catch (error) {
     console.error("Prefetch error:", error);
     // The error will automatically propagate to error.tsx

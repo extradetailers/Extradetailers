@@ -1,10 +1,11 @@
 'use client'
 
-import { IBooking } from '@/types';
-import React from 'react';
+import { EUserRole, IBooking, IBookingPopulated } from '@/types';
+import React, { useState } from 'react';
 import BookingCard from './BookingCard';
-import { DefaultError, useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { deleteBookingOptions, bookingsOptions } from '@/app/_requests/bookings';
+import { DefaultError, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { bookingsOptions, useDeleteBookingOptions, useUpdateBookingOptions } from '@/app/_requests/bookings';
+import { useUsersOptions } from '@/app/_requests/users';
 // import { useError } from '@/lib/ErrorProvider';
 
 
@@ -14,9 +15,24 @@ interface BookingListProps {
 function BookingList({ styles }: BookingListProps) {
     // const { setError } = useError();
     const queryClient = useQueryClient(); // ✅ React Query Client
-    const { data: allBookings } = useSuspenseQuery(bookingsOptions);
+    const { data: allBookings } = useQuery(bookingsOptions);
+    const {data: detailerList} = useQuery(useUsersOptions({role: EUserRole.DETAILER}));
+    // console.log({detailerList});
+    
 
-    const deleteBookingMutation = useMutation<unknown, DefaultError, number>(deleteBookingOptions(queryClient));
+    // const [bookingId, setBookingId] = useState<number | null>(null);
+    
+
+    const deleteBookingMutation = useMutation<unknown, DefaultError, number>(useDeleteBookingOptions(queryClient));
+    const updateBookingMutation = useMutation<unknown, DefaultError, { id: number; updateObj: Record<string, any> }>(useUpdateBookingOptions(queryClient));
+
+    const handleUpdateBooking=(e: React.SyntheticEvent, bookingId: number, updateObj: Record<string, any>)=>{
+        e.preventDefault();
+        if(bookingId){
+            updateBookingMutation.mutate({ id: bookingId, updateObj });
+        }
+        // setBookingId(null);
+      }
 
 
     const handleDeleteBooking = async (e: React.SyntheticEvent, bookingId: number) => {
@@ -34,9 +50,11 @@ function BookingList({ styles }: BookingListProps) {
                 Trigger Error
             </button> */}
 
-            {allBookings.length > 0 
-            ? allBookings.map((booking: IBooking) => (
-                <BookingCard key={booking.id} booking={booking} styles={styles} handleDeleteBooking={handleDeleteBooking} />
+            {allBookings && allBookings.length > 0 
+            ? allBookings.map((booking: IBookingPopulated) => (
+                <BookingCard key={booking.id} booking={booking} styles={styles} 
+                detailers={detailerList}
+                handleDeleteBooking={handleDeleteBooking} handleUpdateBooking={handleUpdateBooking} />
             ))
         : <div className='alert alert-primary'>You have no bookings</div>}
         </div>

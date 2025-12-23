@@ -1,0 +1,354 @@
+{
+  "vehicle_types": [
+    {"name": "Sedan"},
+    {"name": "Small SUV"},
+    {"name": "Large SUV/Truck"}
+  ],
+
+  "service_categories": [
+    {"name": "Exterior-Only Packages"},
+    {"name": "Interior-Only Packages"},
+    {"name": "Full-Service Packages"},
+    {"name": "Add-On Services"}
+  ],
+
+  "services": [
+    {
+      "title": "The Quick Shine (Exterior Basic)",
+      "category": "Exterior-Only Packages",
+      "description": "A fast and efficient service to maintain your vehicle's exterior.",
+      "estimated_time_min": 45,
+      "estimated_time_max": 70,
+      "prices": [
+        {"vehicle_type": "Sedan", "price": 85},
+        {"vehicle_type": "Small SUV", "price": 105},
+        {"vehicle_type": "Large SUV/Truck", "price": 125}
+      ],
+      "features": [
+        "Hand wash & dry",
+        "Tire and rim cleaning with dressing",
+        "Exterior window cleaning"
+      ]
+    },
+    {
+      "title": "The Brilliant Exterior (Standard Enhancement)",
+      "category": "Exterior-Only Packages",
+      "description": "The perfect balance between a basic wash and a full exterior detail, providing added protection and a smooth, contaminant-free finish.",
+      "estimated_time_min": 60,
+      "estimated_time_max": 120,
+      "prices": [
+        {"vehicle_type": "Sedan", "price": 145},
+        {"vehicle_type": "Small SUV", "price": 160},
+        {"vehicle_type": "Large SUV/Truck", "price": 175}
+      ],
+      "features": [
+        "All services from The Quick Shine",
+        "Clay bar treatment to remove embedded contaminants",
+        "Premium wax application for enhanced shine and protection",
+        "Light bug and tar removal",
+        "Gentle microfiber hand-dry"
+      ]
+    },
+    {
+      "title": "The Ultimate Exterior (Exterior Deluxe)",
+      "category": "Exterior-Only Packages",
+      "description": "A high-quality exterior service to enhance and protect your car's finish.",
+      "estimated_time_min": 90,
+      "estimated_time_max": 180,
+      "prices": [
+        {"vehicle_type": "Sedan", "price": 205},
+        {"vehicle_type": "Small SUV", "price": 245},
+        {"vehicle_type": "Large SUV/Truck", "price": 275}
+      ],
+      "features": [
+        "All services from The Quick Shine",
+        "Advanced clay bar treatment for removing contaminants",
+        "Premium wax or sealant application",
+        "Plastic trim revitalization",
+        "Wheel & tire detailing",
+        "High-pressure rinse & eco-friendly foam wash",
+        "Crystal-clear glass & mirrors",
+        "Thorough door jamb & trunk seal cleaning",
+        "Glossy tire finish",
+        "Bug & tar removal"
+      ]
+    },
+    {
+      "title": "The Fresh Start (Interior Basic)",
+      "category": "Interior-Only Packages",
+      "description": "A quick cleanup to keep your interior fresh and tidy.",
+      "estimated_time_min": 45,
+      "estimated_time_max": 60,
+      "prices": [
+        {"vehicle_type": "Sedan", "price": 100},
+        {"vehicle_type": "Small SUV", "price": 125},
+        {"vehicle_type": "Large SUV/Truck", "price": 150}
+      ],
+      "features": [
+        "Interior vacuum (seats, floors, and mats)",
+        "Dashboard and console wipe-down",
+        "Interior window cleaning"
+      ]
+    },
+    {
+      "title": "The Next Step (Standard Interior Detail)",
+      "category": "Interior-Only Packages",
+      "description": "An upgraded interior service for deeper cleaning and added protection.",
+      "estimated_time_min": 90,
+      "estimated_time_max": 120,
+      "prices": [
+        {"vehicle_type": "Sedan", "price": 175},
+        {"vehicle_type": "Small SUV", "price": 205},
+        {"vehicle_type": "Large SUV/Truck", "price": 225}
+      ],
+      "features": [
+        "All services from The Fresh Start",
+        "Deep vacuuming (including under seats and trunk)",
+        "Light spot treatment for upholstery and carpets",
+        "Shampoo for floor mats",
+        "Protective spray for dashboard & trims (UV protection)",
+        "Fabric/upholstery shampoo OR leather wipe-down",
+        "Air freshener treatment"
+      ]
+    },
+    {
+      "title": "The Deep Clean (Interior Deluxe)",
+      "category": "Interior-Only Packages",
+      "description": "A comprehensive interior detailing service that refreshes and sanitizes your vehicle.",
+      "estimated_time_min": 120,
+      "estimated_time_max": 180,
+      "prices": [
+        {"vehicle_type": "Sedan", "price": 245},
+        {"vehicle_type": "Small SUV", "price": 275},
+        {"vehicle_type": "Large SUV/Truck", "price": 315}
+      ],
+      "features": [
+        "All services from The Next Step",
+        "Shampoo for carpets and mats",
+        "Leather seat cleaning and conditioning (if applicable)",
+        "Stain removal for carpets and upholstery",
+        "Steam cleaning of all interior surfaces",
+        "Trunk/hatchback cleaning",
+        "Cupholder, door pocket, and ashtray cleaning",
+        "Headliner cleaning",
+        "UV protectant application",
+        "Air freshener application"
+      ]
+    },
+    {
+      "title": "The Simple Shine (Basic Interior & Exterior)",
+      "category": "Full-Service Packages",
+      "description": "Perfect for maintaining overall cleanliness.",
+      "estimated_time_min": 90,
+      "estimated_time_max": 150,
+      "prices": [
+        {"vehicle_type": "Sedan", "price": 175},
+        {"vehicle_type": "Small SUV", "price": 215},
+        {"vehicle_type": "Large SUV/Truck", "price": 250}
+      ],
+      "features": [
+        "Exterior wash and dry",
+        "Tire and rim cleaning with dressing",
+        "Interior vacuuming (seats, floors, and mats)",
+        "Dashboard and console wipe-down",
+        "Window cleaning (inside & outside)"
+      ]
+    },
+    {
+      "title": "Refined Detail (Standard Interior & Exterior)",
+      "category": "Full-Service Packages",
+      "description": "A balanced package providing both interior freshness and exterior shine with light shampooing and protective treatments.",
+      "estimated_time_min": 150,
+      "estimated_time_max": 210,
+      "prices": [
+        {"vehicle_type": "Sedan", "price": 245},
+        {"vehicle_type": "Small SUV", "price": 260},
+        {"vehicle_type": "Large SUV/Truck", "price": 275}
+      ],
+      "features": [
+        "Exterior: Exterior wash & dry",
+        "Exterior: Tire and rim cleaning with dressing",
+        "Exterior: Clay bar treatment for contaminant removal",
+        "Exterior: Wax or sealant application for enhanced shine & protection",
+        "Exterior: Window cleaning (outside)",
+        "Interior: Thorough vacuuming (seats, floor mats, trunk)",
+        "Interior: Dashboard and console wipe-down",
+        "Interior: Shampoo for mats and light upholstery stain removal",
+        "Interior: Protective spray for dashboard & trims (UV protection)",
+        "Interior: Window cleaning (inside)",
+        "Interior: Air freshener treatment"
+      ]
+    },
+    {
+      "title": "The Perfect Polish (Premium & Most Popular)",
+      "category": "Full-Service Packages",
+      "description": "Bringing out the beauty of your vehicle, inside and out.",
+      "estimated_time_min": 150,
+      "estimated_time_max": 210,
+      "prices": [
+        {"vehicle_type": "Sedan", "price": 295},
+        {"vehicle_type": "Small SUV", "price": 325},
+        {"vehicle_type": "Large SUV/Truck", "price": 345}
+      ],
+      "features": [
+        "All services from The Simple Shine",
+        "Deep interior vacuum (including trunk)",
+        "Shampoo for mats and light upholstery stains",
+        "Protective spray for dashboard & trims",
+        "Detail dashboard & console",
+        "Cupholder & door pocket cleaning",
+        "Headliner wipe-down",
+        "Leather/vinyl restoration",
+        "Air freshener application"
+      ]
+    },
+    {
+      "title": "The Diamond Detail (Deluxe Interior & Exterior)",
+      "category": "Full-Service Packages",
+      "description": "The ultimate restoration package for a like-new finish.",
+      "estimated_time_min": 240,
+      "estimated_time_max": 300,
+      "prices": [
+        {"vehicle_type": "Sedan", "price": 345},
+        {"vehicle_type": "Small SUV", "price": 375},
+        {"vehicle_type": "Large SUV/Truck", "price": 425}
+      ],
+      "features": [
+        "All services from The Perfect Polish",
+        "Clay bar treatment for the exterior",
+        "Wax or sealant application for long-lasting shine",
+        "Leather seat cleaning & conditioning (if applicable)",
+        "Stain removal for carpets and upholstery",
+        "Steam cleaning of all interior surfaces (seats, carpets, hard-to-reach areas)",
+        "Engine bay cleaning"
+      ]
+    }
+  ],
+
+  "add_on_services": [
+    {
+      "name": "Single-Stage Paint Correction",
+      "description": "Light swirl & scratch removal",
+      "category": "Add-On Services",
+      "price_min": 200,
+      "price_max": 350
+    },
+    {
+      "name": "Multi-Stage Paint Correction",
+      "description": "Deep swirl & scratch removal",
+      "category": "Add-On Services",
+      "price_min": 400,
+      "price_max": 600
+    },
+    {
+      "name": "6-month Spray Ceramic Coating",
+      "description": "Includes paint decontamination & minor correction",
+      "category": "Add-On Services",
+      "price_min": 150,
+      "price_max": 200
+    },
+    {
+      "name": "1-year Ceramic Coating",
+      "description": "Includes paint decontamination & minor correction",
+      "category": "Add-On Services",
+      "price_min": 400,
+      "price_max": 500
+    },
+    {
+      "name": "3-year Ceramic Coating",
+      "description": "Includes paint decontamination & minor correction",
+      "category": "Add-On Services",
+      "price_min": 700,
+      "price_max": 800
+    },
+    {
+      "name": "5-year Ceramic Coating",
+      "description": "Includes paint decontamination & minor correction",
+      "category": "Add-On Services",
+      "price_min": 900,
+      "price_max": 1000
+    },
+    {
+      "name": "Deep Stain Removal",
+      "description": "Professional stain removal service",
+      "category": "Add-On Services",
+      "price_min": 50,
+      "price_max": 100
+    },
+    {
+      "name": "Odor Neutralization (Ozone Treatment)",
+      "description": "Eliminates tough odors from your vehicle",
+      "category": "Add-On Services",
+      "price": 100
+    },
+    {
+      "name": "Leather Deep Cleaning & Conditioning",
+      "description": "Specialized leather treatment",
+      "category": "Add-On Services",
+      "price_min": 75,
+      "price_max": 100
+    },
+    {
+      "name": "Fabric Protection (Scotchgard)",
+      "description": "Protects upholstery from stains",
+      "category": "Add-On Services",
+      "price": 50
+    },
+    {
+      "name": "Hydrophobic Glass Coating",
+      "description": "Water-repellent glass treatment",
+      "category": "Add-On Services",
+      "price": 30
+    },
+    {
+      "name": "Trim & Plastic Restoration",
+      "description": "Restores faded plastic and trim",
+      "category": "Add-On Services",
+      "price": 60
+    },
+    {
+      "name": "Engine Bay Deep Cleaning & Dressing",
+      "description": "Cleans and protects engine compartment",
+      "category": "Add-On Services",
+      "price": 75
+    },
+    {
+      "name": "Headlight Restoration + Sealant",
+      "description": "Restores cloudy headlights",
+      "category": "Add-On Services",
+      "price": 60
+    },
+    {
+      "name": "Pet Hair & Sand Removal",
+      "description": "Specialized removal of pet hair and sand",
+      "category": "Add-On Services",
+      "price_min": 75,
+      "price_max": 100
+    },
+    {
+      "name": "Road Tar & Sap Removal",
+      "description": "Professional removal of tough tar and sap",
+      "category": "Add-On Services",
+      "price_min": 50,
+      "price_max": 75
+    }
+  ],
+
+  "benefits": [
+    {
+      "title": "100% Satisfaction Guarantee",
+      "description": "We're not happy until you are!",
+      "icon": "check-circle"
+    },
+    {
+      "title": "Eco-Friendly Products",
+      "description": "Safe for your car and the environment.",
+      "icon": "leaf"
+    },
+    {
+      "title": "Convenience",
+      "description": "Mobile services available at your home or office.",
+      "icon": "truck"
+    }
+  ]
+}

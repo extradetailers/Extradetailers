@@ -14,10 +14,9 @@ from pathlib import Path
 from corsheaders.defaults import default_methods
 from datetime import timedelta
 from dotenv import load_dotenv
-import pymysql
 from utils.keys import REFRESH_TOKEN_LIFETIME_IN_DAYS, ACCESS_TOKEN_LIFETIME_IN_MINUTES
 
-pymysql.install_as_MySQLdb()  # Required if using pymysql
+
 
 load_dotenv()  # take environment variables from .env.
 
@@ -58,7 +57,7 @@ INSTALLED_APPS = [
     "services",
     "bookings",
     "detailers",
-    "payment",
+    "payments",
     "customers"
 ]
 
@@ -81,7 +80,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
 "http://localhost:3000",
-    # os.getenv("FRONTEND_URL"),
+    os.getenv("FRONTEND_URL"),
 ]
 
 CORS_ALLOW_METHODS = (
@@ -111,22 +110,16 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
+DATABASE_HOST = os.getenv( "DB_HOST", "localhost" )
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv("DB_NAME", None),
-        'USER': os.getenv("DB_USERNAME", None),  # Replace with your MySQL username
-        'PASSWORD': os.getenv("DB_PASSWORD", None),  # Replace with your MySQL password
-        'HOST': os.getenv("DB_HOST", None),  # Change if using a remote database
-        'PORT': os.getenv("DB_PORT", None),  # Default MySQL port
+        'NAME': os.getenv("POSTGRES_DB", "extradetailers_db"),
+        'USER': os.getenv("POSTGRES_USER", "shayon"),
+        'PASSWORD': os.getenv("POSTGRES_PASSWORD", "Test1234"),
+        'HOST': DATABASE_HOST,  # 'db' is the name of the PostgreSQL container in docker-compose
+        'PORT': os.getenv("DB_PORT", "5432"),
     }
 }
 
@@ -202,12 +195,17 @@ SPECTACULAR_SETTINGS = {
     # OTHER SETTINGS
 }
 
+
+# Email backend configuration
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
-EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_PORT = os.getenv('EMAIL_PORT', '587')
-EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True').lower() == 'true'
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')  # <-- set a safe default if needed
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))  # ensure it's an integer
+# Use TLS or SSL for secure email sending
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True').lower() in ['true', '1', 'yes']
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', 'False').lower() in ['true', '1', 'yes']
+# Email authentication
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=ACCESS_TOKEN_LIFETIME_IN_MINUTES),  # 10 minutes
@@ -248,3 +246,5 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
+
+STATIC_ROOT = os.getenv('STATIC_ROOT', os.path.join(BASE_DIR, 'staticfiles'))

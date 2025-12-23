@@ -1,19 +1,29 @@
 from rest_framework import generics
 from .models import Booking
-from .serializers import BookingSerializer
+from .serializers import BookingSerializer, BookingPopulatedSerializer, BookingUpdateSerializer
 from accounts.mixins import CustomerPermissionMixin, GeneralUserPermissionMixin, AdminPermissionMixin
 
 
-# List all bookings (User can only view their own bookings)
 class BookingListView(GeneralUserPermissionMixin, generics.ListAPIView):
-    serializer_class = BookingSerializer
+    serializer_class = BookingPopulatedSerializer
 
     def get_queryset(self):
         user = self.request.user
 
-        if user.is_authenticated and user.role == "admin":
-            return Booking.objects.all()  # Admin sees all bookings
-        return Booking.objects.filter(user=user)  # Non-admin users see their own bookings only
+        if not user.is_authenticated:
+            return Booking.objects.none()
+
+        if user.role == "admin":
+            return Booking.objects.all()
+
+        elif user.role == "customer":
+            return Booking.objects.filter(customer=user)
+
+        elif user.role == "detailer":
+            return Booking.objects.filter(detailer=user)
+
+        return Booking.objects.none()
+
 
 
 # Create a new booking (User can only create for themselves)
@@ -34,13 +44,14 @@ class BookingRetrieveView(GeneralUserPermissionMixin, generics.RetrieveAPIView):
 
 # Update a specific booking (User can only update their own bookings)
 class BookingUpdateView(AdminPermissionMixin, generics.UpdateAPIView):
-    serializer_class = BookingSerializer
-    lookup_field = "pk"  # Ensures lookup by primary key from the URL
+    serializer_class = BookingUpdateSerializer
+    lookup_field = "pk"
 
     def get_queryset(self):
-        if self.request.user.role == 'admin':  # Admins can update any booking
+        if self.request.user.role == 'admin':
             return Booking.objects.all()
-        return Booking.objects.filter(user=self.request.user)  # Users can update only their bookings
+        return Booking.objects.filter(customer=self.request.user)
+
 
 
 # Delete a specific booking (User can only delete their own bookings)

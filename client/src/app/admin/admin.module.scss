@@ -1,9 +1,15 @@
+@use '../_variables.scss' as *;
+
 .adminLayout{
-    // height: 100vh;
+// Dummy comments
 }
 
 .leftSide{
+    // style={{ width: '280px' }}
+    width: 280px;
+}
 
+.closeBtn {
 }
 
 .rightSide{

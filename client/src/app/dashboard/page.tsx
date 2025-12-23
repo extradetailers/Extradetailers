@@ -1,9 +1,11 @@
-import React from 'react'
-
+import React from 'react';
+import DashboardHeader from '@/components/dashboard/DashboardHeader';
 function DashboardPage() {
   return (
-    <div>DashboardPage</div>
+    <div>
+      <DashboardHeader />
+    </div>
   )
 }
 
-export default DashboardPage
+export default DashboardPage;

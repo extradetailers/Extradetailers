@@ -8,7 +8,7 @@ function AboutUsPage() {
   return (
     <React.Fragment>
       <section className={styles.landing}>
-        <Landing title="Contact" />
+        <Landing title="About Us" />
       </section>
       <main>
               {/* About start  */}
@@ -24,4 +24,4 @@ function AboutUsPage() {
   )
 }
 
-export default AboutUsPage
+export default AboutUsPage;

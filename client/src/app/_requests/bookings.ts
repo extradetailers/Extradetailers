@@ -1,43 +1,70 @@
 import axiosInstance from "@/config/axios";
-import { IAPIError, IBooking } from "@/types";
+import { useMessage } from "@/lib/ToastProvider";
+import { IAPIError, IBooking, IBookingPopulated } from "@/types";
+import { handleApiError } from "@/utils/handleError";
+import { cleanFormData } from "@/utils/helpers";
 import { QueryClient } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 
 export const bookingsOptions = {
   queryKey: ["bookings"] as const,
-  queryFn: async (): Promise<IBooking[]> => {
+  queryFn: async (): Promise<IBookingPopulated[]> => {
     try {
       const response = await axiosInstance.get("/bookings/");
       
       return response.data;
-    } catch (error) {
-      const axiosError = error as AxiosError<IAPIError>;
-      
-      // Handle different error scenarios
-      if (axiosError.response) {
-        // Server responded with a status code outside 2xx
-        const errorMessage = axiosError.response.data?.message || 
-                            `Server responded with ${axiosError.response.status}`;
-        throw new Error(errorMessage);
-      } else if (axiosError.request) {
-        // Request was made but no response received
-        throw new Error("Network error - no response received from server");
-      } else {
-        // Something happened in setting up the request
-        throw new Error("Failed to setup booking request");
-      }
+      // @ts-ignore
+    } catch (error: IAPIError) {
+      const errorMessage = handleApiError(error);
+      throw new Error(errorMessage)
+
     }
   },
 };
 
+interface IUpdateBookingProps {
+  id: number;
+  updateObj: Record<string, any>;
+}
 
+async function updateBooking({ id, updateObj }: IUpdateBookingProps) {
+  // const cleanedFormData = cleanFormData(formData);
+  const response = await axiosInstance.put(
+    `/bookings/${id}/update/`,
+    updateObj,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+  return response.data;
+}
+
+export function useUpdateBookingOptions(
+  queryClient: QueryClient
+): Record<string, unknown> {
+  const { setMessage } = useMessage();
+  return {
+    mutationFn: updateBooking,
+    onSuccess: () => {
+      console.log("Booking updated successfully!");
+      queryClient.invalidateQueries({ queryKey: ["bookings"] });
+    },
+    onError: (error: never) => {
+      console.error("update Booking Error:", error);
+      const errorMessage = handleApiError(error);
+      setMessage({ error: true, text: errorMessage });
+    },
+  };
+}
 
 async function deleteBooking(serviceId: number) {
   const response = await axiosInstance.delete(`/bookings/${serviceId}/delete/`);
   return response.data;
 }
 
-export function deleteBookingOptions(queryClient: QueryClient): Record<string, unknown> {
+export function useDeleteBookingOptions(queryClient: QueryClient): Record<string, unknown> {
+  const { setMessage } = useMessage();
   return {
     mutationFn: deleteBooking,
     onSuccess: () => {
@@ -46,6 +73,8 @@ export function deleteBookingOptions(queryClient: QueryClient): Record<string, u
     },
     onError: (error: never) => {
       console.error("Create Booking Error:", error);
+      const errorMessage = handleApiError(error);
+      setMessage({ error: true, text: errorMessage });
     },
   }
 }

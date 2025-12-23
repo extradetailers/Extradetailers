@@ -2,6 +2,14 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractUser
 
 
+# Add multiple location of customer, and select one location in the time of booking
+# Add promo codes
+# Create another user types, that is detailer -> Manually or automatically assign jobs to available detailers.
+# Detailer -> Manage detailer availability, location, and ratings.
+# Receive notifications for new job assignments.
+# Accept or decline jobs.
+# Track completed jobs and payment history.
+
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -43,3 +51,17 @@ class User(AbstractUser):
 
     def has_module_perms(self, app_label):
         return self.is_superuser
+
+class Location(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="locations")
+    label = models.CharField(max_length=100) # e.g. Home, Work
+    address_line1 = models.CharField(max_length=255)
+    address_line2 = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    zip_code = models.CharField(max_length=100)
+    country = models.CharField(max_length=100, default="USA")
+    is_primary = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.label} - {self.address_line1}, {self.city}"

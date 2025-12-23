@@ -1,0 +1,55 @@
+@use "../mixins" as *;
+@use "../variables" as *;
+
+
+.landing {
+  @include landing-design();
+}
+
+$box-height: 220px;
+
+.packageList{
+  // li{
+  //   &:nth-child(even){
+  //     background: $primary;
+  //   }
+  // }
+}
+.packageCard{
+  // height: $box-height;
+}
+.pricingBox{
+  width: 30%;
+}
+.descriptionBox{
+  width: 40%;
+}
+.btnBox{
+  width: 30%;
+}
+
+.imgWrapper{
+  height: 70%;
+}
+
+.cleaningDiscount{
+  object-position: center;
+}
+
+.imgContent{
+  height: fit-content;
+}
+
+
+
+// Selection width style 
+.removeBtn{
+width: 7%;
+}
+.serviceName{
+  width: 80%;
+}
+
+.servicePrice{
+  width: 13%;
+}

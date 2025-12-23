@@ -1,7 +1,33 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import User
+from .models import User, Location
 
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        exclude = ['password']  # Exclude sensitive field
+
+
+# Creating user by admin
+class UserCreationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
+        # exclude = ['username']
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'email', 'first_name', 'last_name', 'role',
+            'is_validated', 'is_admin', 'is_active',
+            'is_staff', 'is_superuser', 'username',
+            'groups', 'user_permissions'
+        ]
+        extra_kwargs = {
+            field: {'required': False} for field in fields
+        }
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, min_length=6)
@@ -48,3 +74,10 @@ class EmptySerializer(serializers.Serializer):
 
 class ResetPasswordSerializer(serializers.Serializer):
     token = serializers.CharField()
+    password = serializers.CharField(write_only=True)
+
+
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = "__all__"

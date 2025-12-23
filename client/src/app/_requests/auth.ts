@@ -2,7 +2,7 @@ import axiosInstance from "@/config/axios";
 import { useMessage } from "@/lib/ToastProvider";
 import { handleApiError } from "@/utils/handleError";
 import LocalStorage from "@/utils/LocalStorage";
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 // import { QueryClient } from "@tanstack/react-query";
 
 export const signoutUser = async (userData: FormData) => {
@@ -75,7 +75,7 @@ export async function refreshAccessToken() {
 
 export function useSigninOptions(): Record<string, unknown> {
   const { setMessage } = useMessage();
-  const router = useRouter(); // Initialize Next.js router
+  // const router = useRouter(); // Initialize Next.js router
   
 
   return {
@@ -85,7 +85,10 @@ export function useSigninOptions(): Record<string, unknown> {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       LocalStorage.setUser(data?.access_token || null, data?.user_role || null);
-      router.push("/dashboard");
+      // router.push("/dashboard");
+      if(window !== undefined){
+        window.location.href = "/dashboard";
+      }
     },
     onError: (error: never) => {
       const errorMessage = handleApiError(error);
@@ -116,7 +119,7 @@ export function useSignupOptions(): Record<string, unknown> {
 
 export function useSignoutOptions(): Record<string, unknown> {
   const { setMessage } = useMessage();
-  const router = useRouter(); // Initialize Next.js router
+  // const router = useRouter(); // Initialize Next.js router
 
   return {
     mutationFn: signoutUser,
@@ -126,7 +129,58 @@ export function useSignoutOptions(): Record<string, unknown> {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       setMessage({ error: false, text: data?.message || "Signout successfully!" });
-      router.push("/signin");
+      // router.push("/signin");
+      if(window !== undefined){
+        window.location.href = "/signin";
+      }
+    },
+    onError: (error: never) => {
+      const errorMessage = handleApiError(error);
+      setMessage({ error: true, text: errorMessage });
+    },
+  }
+};
+
+
+export const passwordForgotten = async (userData: FormData) => {
+  const response = await axiosInstance.post("/accounts/forgot-password/", userData);
+  return response.data;
+};
+
+export function usePasswordForgottenOptions(): Record<string, unknown> {
+  const { setMessage } = useMessage();
+  // const router = useRouter(); // Initialize Next.js router
+
+  return {
+    mutationFn: passwordForgotten,
+    onSuccess: (data: unknown) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      setMessage({ error: false, text: data?.message || "Sent Validation code via email successfully!" });
+    },
+    onError: (error: never) => {
+      const errorMessage = handleApiError(error);
+      setMessage({ error: true, text: errorMessage });
+    },
+  }
+};
+
+
+export const resetPassword = async (userData: FormData) => {
+  const response = await axiosInstance.post("/accounts/reset-password/", userData);
+  return response.data;
+};
+
+export function useResetPasswordOptions(): Record<string, unknown> {
+  const { setMessage } = useMessage();
+  // const router = useRouter(); // Initialize Next.js router
+
+  return {
+    mutationFn: resetPassword,
+    onSuccess: (data: unknown) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      setMessage({ error: false, text: data?.message || "Password reset successfully!" });
     },
     onError: (error: never) => {
       const errorMessage = handleApiError(error);

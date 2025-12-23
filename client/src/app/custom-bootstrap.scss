@@ -1,15 +1,24 @@
-@import "./variables";
+// 1️⃣ First import your variables
+@use "./variables" as *;
 
-// Import Bootstrap's SCSS
-// @import 'bootstrap/scss/bootstrap';
-@import "../../node_modules/bootstrap/scss/bootstrap";
+// 2️⃣ Then import Bootstrap with your overrides
+@use "../../node_modules/bootstrap/scss/bootstrap" with (
+    // Override Bootstrap's default variables with yours
+    $primary: $primary,
+    $secondary: $secondary,
+    $white: $white,
+    // Add other Bootstrap variables you want to override
+    $btn-border-radius: $btn-border-radius
+);
 
-// Custom Button Styling
-// Custom Button Styling
+// 3️⃣ Now Bootstrap will use YOUR variables internally
+// No need to manually reference `vars.$primary`—Bootstrap will use your `$primary` automatically
+
+// Your custom button styles
 .btn-primary {
     position: relative;
     overflow: hidden;
-    background-color: $primary;
+    background-color: $primary; // Now uses your overridden Bootstrap variable
     color: $white;
     font-weight: bold;
     padding: 0.5rem 1.25rem;
@@ -37,4 +46,3 @@
         }
     }
 }
-

@@ -1,66 +1,71 @@
-'use client';
+import useUser from "@/hooks/useUser";
+import { EUserRole, IMenuItem } from "@/types";
+import { adminMenuList } from "@/utils/staticData";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React from "react";
 
-import { IMenuItem } from '@/types';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import React from 'react';
-
-interface INavbarProps{
-    className: string;
-    title: string;
-    menuList: IMenuItem[];
+interface INavbarProps {
+  className: string;
+  title: string;
+  menuList: IMenuItem[];
 }
 
-function Navbar({className, title, menuList}: INavbarProps) {
-    const pathname = usePathname();
+function Navbar({ className, title, menuList }: INavbarProps) {
+  const pathname = usePathname();
+  const user = useUser();
 
-    const isActive = (path: string) => pathname === path ? "active" : "text-white";
+  return (
+    <nav
+      className={`d-flex flex-column bg-dark text-white p-2 p-md-3 rounded ${className}`}
+    >
+      {title && <h4 className="mb-3 mb-md-4">{title}</h4>}
 
-    // admin, admin/bookings, admin/services, admin/customers
+      {/* user?.userRole === EUserRole.DETAILER &&
+            item.title !== "Checkout" && */}
 
-    return (
-        <nav className={`d-flex flex-column bg-dark text-white ${className}`}>
-            <h4 className="mb-3 px-3">{title}</h4>
-            <ul className="nav nav-pills flex-column mb-auto">
-                {menuList.map((item)=> (<li key={item.id} className="nav-item">
-                    <Link href={item.link} className={`nav-link ${isActive(item.link)}`}>
-                        {item.text}
-                    </Link>
-                </li>))}
-                {/* <li className="nav-item">
-                    <Link href="/admin" className={`nav-link ${isActive("/admin")}`}>
-                        Home
-                    </Link>
-                </li>
-                <li className="nav-item">
-                    <Link href="/admin/booking" className={`nav-link ${isActive("/admin/booking")}`}>
-                        Bookings
-                    </Link>
-                    <ul className="nav flex-column ms-3">
-                        <li className="nav-item">
-                            <Link href="/admin/booking/create" className="nav-link text-white">Create</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link href="/admin/booking/list" className="nav-link text-white">List</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link href="/admin/booking/update" className="nav-link text-white">Update</Link>
-                        </li>
-                    </ul>
-                </li>
-                <li className="nav-item">
-                    <Link href="/admin/service" className={`nav-link ${isActive("/admin/service")}`}>
-                        Services
-                    </Link>
-                </li>
-                <li className="nav-item">
-                    <Link href="/admin/customer" className={`nav-link ${isActive("/admin/customer")}`}>
-                        Customers
-                    </Link>
-                </li> */}
-            </ul>
-        </nav>
-    );
+      <ul className="nav nav-pills flex-column mb-auto overflow-auto">
+        {menuList.map(
+          (item) => (
+              <li key={item.title} className="nav-item mb-1">
+                <div className="d-flex align-items-center justify-content-between">
+                  <Link
+                    href={item.path}
+                    className={`nav-link flex-grow-1 text-truncate ${
+                      pathname === item.path
+                        ? "active bg-primary"
+                        : "text-white"
+                    }`}
+                  >
+                    {item.title}
+                  </Link>
+                </div>
+
+                {/* Sub-menu rendering if current path is under service */}
+                {item.children && pathname.includes(item.path) && (
+                  <ul className="nav flex-column mt-2 ms-3 border-start border-secondary ps-2">
+                    {item.children.map((subItem) => (
+                      <li key={subItem.title} className="nav-item">
+                        <Link
+                          href={subItem.path}
+                          className={`nav-link text-truncate ${
+                            pathname === subItem.path
+                              ? "active bg-primary"
+                              : "text-white"
+                          }`}
+                        >
+                          {subItem.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            )
+        )}
+      </ul>
+    </nav>
+  );
 }
 
 export default Navbar;

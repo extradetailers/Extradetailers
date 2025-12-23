@@ -4,9 +4,17 @@ $secondary: #002255ff; // Change primary color
 $white: #fff;
 $dark: #00152aff;
 $border-radius: 3px; // Change border radius
+$btn-border-radius: 3px;
 // $navbar-light-toggler-icon-bg:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-light-icon-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
 $btn-focus-width: 0;
 $btn-focus-box-shadow: none;
 
 // Button 
 $border-color:                rgba(255, 255, 255, 0.205);
+
+
+$br-sm: 767px;
+
+
+// Custom design 
+$card-width: 400px;
