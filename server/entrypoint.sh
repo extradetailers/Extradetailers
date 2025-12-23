@@ -9,9 +9,11 @@ python manage.py migrate --noinput
 echo "Collecting static files..."
 python manage.py collectstatic --noinput
 
-# echo "Starting Gunicorn..."
-# exec "$@" \
-#   --bind 0.0.0.0:${PORT} \
-#   --workers ${GUNICORN_WORKERS:-2} \
-#   --threads 4 \
-#   --timeout 0
+echo "Starting Gunicorn on port ${PORT}..."
+exec gunicorn \
+  --chdir /app \
+  core.wsgi:application \
+  --bind 0.0.0.0:${PORT} \
+  --workers 2 \
+  --threads 4 \
+  --timeout 0

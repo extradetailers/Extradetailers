@@ -23,8 +23,6 @@ COPY . .
 # Make entrypoint executable
 RUN chmod +x /app/entrypoint.sh
 
-# Cloud Run injects PORT
-ENV PORT=8000
 
 # Run as non-root (Cloud Run best practice)
 RUN useradd -m appuser
@@ -34,3 +32,5 @@ USER appuser
 ENTRYPOINT ["/app/entrypoint.sh"]
 
 CMD ["gunicorn", "--chdir", "/app", "core.wsgi:application"]
+
+
