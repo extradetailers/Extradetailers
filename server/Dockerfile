@@ -31,6 +31,6 @@ USER appuser
 # Entrypoint handles migrations + gunicorn
 ENTRYPOINT ["/app/entrypoint.sh"]
 
-CMD ["gunicorn", "--chdir", "/app", "core.wsgi:application"]
+# CMD ["gunicorn", "--chdir", "/app", "core.wsgi:application"]
 
 

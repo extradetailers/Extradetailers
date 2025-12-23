@@ -18,7 +18,8 @@ from utils.keys import REFRESH_TOKEN_LIFETIME_IN_DAYS, ACCESS_TOKEN_LIFETIME_IN_
 
 
 
-load_dotenv()  # take environment variables from .env.
+if os.getenv("ENVIRONMENT") != "production":
+    load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,6 +29,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY")
+if not SECRET_KEY:
+    raise RuntimeError("SECRET_KEY environment variable is not set")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
@@ -112,16 +115,28 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASE_HOST = os.getenv( "DB_HOST", "localhost" )
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv("POSTGRES_DB", "extradetailers_db"),
+#         'USER': os.getenv("POSTGRES_USER", "shayon"),
+#         'PASSWORD': os.getenv("POSTGRES_PASSWORD", "Test1234"),
+#         'HOST': DATABASE_HOST,  # 'db' is the name of the PostgreSQL container in docker-compose
+#         'PORT': os.getenv("DB_PORT", "5432"),
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv("POSTGRES_DB", "extradetailers_db"),
-        'USER': os.getenv("POSTGRES_USER", "shayon"),
-        'PASSWORD': os.getenv("POSTGRES_PASSWORD", "Test1234"),
-        'HOST': DATABASE_HOST,  # 'db' is the name of the PostgreSQL container in docker-compose
-        'PORT': os.getenv("DB_PORT", "5432"),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ["POSTGRES_DB"],
+        "USER": os.environ["POSTGRES_USER"],
+        "PASSWORD": os.environ["POSTGRES_PASSWORD"],
+        "HOST": f"/cloudsql/{os.environ['INSTANCE_CONNECTION_NAME']}",
+        "PORT": "5432",
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
