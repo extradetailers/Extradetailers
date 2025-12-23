@@ -24,9 +24,9 @@ jobs:
           workload_identity_provider: projects/570378881850/locations/global/workloadIdentityPools/github-identity-pool/providers/extradetailers-github-provider
           service_account: extradetailers-service-account@extra-detailers-project.iam.gserviceaccount.com
 
-      # Build & push image
+      # Build & Push Docker Image
       - name: Build and Push Image
-        uses: google-github-actions/build-push-action@v5
+        uses: docker/build-push-action@v5
         with:
           context: ./server
           push: true
