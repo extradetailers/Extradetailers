@@ -7,8 +7,15 @@ const nextConfig: NextConfig = {
   /* config options here */
   sassOptions: {
     // Add any custom Sass options here if needed
-    includePaths: ['./styles'], // Optional: specify path to your Sass files
-  }
+    sassOptions: {
+      includePaths: ['./styles'],
+      quietDeps: true, // 🔕 silences node_modules (Bootstrap) warnings
+    },
+  },
+  turbopack: {
+    // 👇 THIS FIXES THE FATAL ERROR (see section 2)
+    root: __dirname,
+  },
 };
 
 export default nextConfig;

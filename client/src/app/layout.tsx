@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./custom-bootstrap.scss";
 import "./globals.scss";
 import gsap from "gsap";

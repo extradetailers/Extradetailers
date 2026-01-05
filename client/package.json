@@ -18,7 +18,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/react-datepicker": "^7.0.0",
     "axios": "^1.13.2",
-    "bootstrap": "^5.3.8",
+    "bootstrap": "^5.3.3",
     "css-loader": "^7.1.2",
     "date-fns": "^4.1.0",
     "jsonwebtoken": "^9.0.3",
