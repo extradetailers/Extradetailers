@@ -10,7 +10,7 @@ import Loader from "@/components/elements/Loader";
 import Modal from "@/components/elements/Modal";
 import UserAdd from "./CustomerAdd";
 import UserCard from "./CustomerCard";
-import { deleteUserOptions, useUpdateUserOptions } from "@/app/_requests/users";
+import { useDeleteUserOptions, useUpdateUserOptions } from "@/app/_requests/users";
 
 interface UserListProps {
   styles: TModuleStyle;
@@ -26,7 +26,7 @@ function UserList({ styles, userList }: UserListProps) {
 
 
   const deleteUserMutation = useMutation<unknown, DefaultError, number>(
-    deleteUserOptions(queryClient)
+    useDeleteUserOptions(queryClient)
   );
 
   const handleDeleteUser = async (

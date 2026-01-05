@@ -115,27 +115,32 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASE_HOST = os.getenv( "DB_HOST", "localhost" )
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.getenv("POSTGRES_DB", "extradetailers_db"),
-#         'USER': os.getenv("POSTGRES_USER", "shayon"),
-#         'PASSWORD': os.getenv("POSTGRES_PASSWORD", "Test1234"),
-#         'HOST': DATABASE_HOST,  # 'db' is the name of the PostgreSQL container in docker-compose
-#         'PORT': os.getenv("DB_PORT", "5432"),
-#     }
-# }
+USE_CLOUD_SQL = os.getenv("USE_CLOUD_SQL", "false").lower() == "true"
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ["POSTGRES_DB"],
-        "USER": os.environ["POSTGRES_USER"],
-        "PASSWORD": os.environ["POSTGRES_PASSWORD"],
-        "HOST": f"/cloudsql/{os.environ['INSTANCE_CONNECTION_NAME']}",
-        "PORT": "5432",
+if USE_CLOUD_SQL:
+    # ✅ Production / GitHub Actions / Cloud Run
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.environ["POSTGRES_DB"],
+            "USER": os.environ["POSTGRES_USER"],
+            "PASSWORD": os.environ["POSTGRES_PASSWORD"],
+            "HOST": f"/cloudsql/{os.environ['INSTANCE_CONNECTION_NAME']}",
+            "PORT": "5432",
+        }
     }
-}
+else:
+    # ✅ Local / Docker / Development
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.getenv("POSTGRES_DB", "extradetailers_db"),
+            "USER": os.getenv("POSTGRES_USER", "shayon"),
+            "PASSWORD": os.getenv("POSTGRES_PASSWORD", "Test1234"),
+            "HOST": os.getenv("DATABASE_HOST", "localhost"),
+            "PORT": os.getenv("DB_PORT", "5432"),
+        }
+    }
 
 
 # Password validation
