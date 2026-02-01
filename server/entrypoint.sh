@@ -3,8 +3,8 @@ set -e
 
 echo "Running migrations..."
 # makemigrations should NOT run in production (can cause schema drift)
-python manage.py makemigrations --noinput
-python manage.py migrate --noinput
+# python manage.py makemigrations --noinput
+# python manage.py migrate --noinput
 
 # echo "Collecting static files..."
 # python manage.py collectstatic --noinput
